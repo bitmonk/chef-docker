@@ -3,6 +3,12 @@ when 'debian', 'ubuntu'
   include_recipe 'apt'
   package 'apt-transport-https'
   package 'bsdtar'
+
+  if node['platform_version'] == '12.04'
+    package 'linux-image-generic-lts-raring'
+    package 'linux-headers-generic-lts-raring'
+  end
+
   sysctl_param 'net.ipv4.ip_forward' do
     value 1
     only_if { node['platform'] == 'debian' }
